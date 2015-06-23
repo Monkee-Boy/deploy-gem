@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'mboy-deploy'
-  s.version     = '0.0.5'
-  s.date        = '2015-02-06'
+  s.version     = '0.1.0'
+  s.date        = '2015-06-23'
   s.summary     = "Private gem for Monkee-Boy."
   s.description = "Private gem used primarly for Monkee-Boy deployments."
   s.authors     = ["Monkee-Boy"]

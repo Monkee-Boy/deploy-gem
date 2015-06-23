@@ -66,6 +66,27 @@ class Mboy
         puts '✔'.green
       end
     end
+
+    # Couldn't find a better place for this besides in this method.
+    before :finished, :setsymlink do
+      on roles(:web) do
+        within deploy_to do
+          execute :ln, '-s', 'current', 'public_html'
+        end
+      end
+    end
+
+    before :setsymlink, :deploy_step_beforesymlink do
+      on roles(:all) do
+        print 'Creating the public_html symlink on current release......'
+      end
+    end
+
+    after :setsymlink, :deploy_step_aftersymlink do
+      on roles(:all) do
+        puts '✔'.green
+      end
+    end
   end
 
   def self.deploy_steps()
