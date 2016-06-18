@@ -1,5 +1,7 @@
-![Monkee-Boy](https://dujrsrsgsd3nh.cloudfront.net/img/emoticons/113009/mboy-1403710932.jpg) mBoy Deployment Gem
+mBoy Deployment Gem
 ==============
+
+<img align="right" width="95" height="95" title="logo of Monkee-Boy" src="http://assets.monkee-boy.com/mboy-new-monkeehead.png">
 
 This ruby gem sets some defaults for Monkee-Boy deployments using Capistrano.
 
@@ -9,11 +11,11 @@ This ruby gem sets some defaults for Monkee-Boy deployments using Capistrano.
 
 ## The Dev Team
 
-Handcrafted with ♥ in Austin, Texas by the [Monkee-Boy Troop](http://www.monkee-boy.com/about/the-troop.php).
+Handcrafted with ♥ in Austin, Texas by the [Monkee-Boy Troop](http://www.monkee-boy.com/who/the-troop/).
 
-| [![James Fleeting](https://avatars0.githubusercontent.com/u/23062?s=144)](https://github.com/fleeting) | [![Pete Gautier](https://avatars3.githubusercontent.com/u/5394199?s=144)](https://github.com/pgautier404) | [![Sarah Higley](https://avatars3.githubusercontent.com/u/3819570?s=144)](https://github.com/smhigley) | [![John,Hoover](https://avatars2.githubusercontent.com/u/48278?s=144)](https://github.com/defvayne23) |
-|---|---|---|---|
-| [James Fleeting](http://github.com/fleeting) | [Pete Gautier](https://github.com/pgautier404) | [Sarah Higley](https://github.com/smhigley) | [John Hoover](https://github.com/defvayne23) |
+| [![James Fleeting](https://avatars0.githubusercontent.com/u/23062?s=144)](https://github.com/fleeting) |
+|---|
+| [James Fleeting](http://github.com/fleeting) |
 
 
-![Monkee-Boy](http://www.monkee-boy.com/img/logo-withtag-vertical-dark.jpg)
+![Monkee-Boy](http://assets.monkee-boy.com/mboy-logo-vertical-dark.png)

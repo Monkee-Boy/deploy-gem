@@ -26,10 +26,10 @@ class Mboy
           ##      ##    #####    ##    ##   ##   ### #######  #######         ######     #####      ##
 
 
-        '.yellow
+        '
 
         puts '                        ******************** DEPLOYMENT INITIATED *********************'
-        puts '                        You are now starting a Monkee-Boy deployment to the Habitat.'.green
+        puts '                                 You are now starting a Monkee-Boy deployment.'
         puts '                        ***************************************************************
 
         '
@@ -55,116 +55,12 @@ class Mboy
       end
     end
 
-    before :tagrelease, :deploy_step_beforetag do
-      on roles(:all) do
-        print 'Creating a git tag for this stage on current release......'
-      end
-    end
-
-    after :tagrelease, :deploy_step_aftertag do
-      on roles(:all) do
-        puts '✔'.green
-      end
-    end
-
     # Couldn't find a better place for this besides in this method.
     before :finished, :setsymlink do
       on roles(:web) do
         within deploy_to do
           execute :ln, '-s', 'current', 'public_html'
         end
-      end
-    end
-
-    before :setsymlink, :deploy_step_beforesymlink do
-      on roles(:all) do
-        print 'Creating the public_html symlink on current release......'
-      end
-    end
-
-    after :setsymlink, :deploy_step_aftersymlink do
-      on roles(:all) do
-        puts '✔'.green
-      end
-    end
-  end
-
-  def self.deploy_steps()
-    before :check, :deploy_step_beforecheck do
-      on roles(:all) do
-        print 'Checking deployment environment......'
-      end
-    end
-
-    after :check, :deploy_step_aftercheck do
-      on roles(:all) do
-        puts '✔'.green
-      end
-    end
-
-    before :updating, :deploy_step_beforeupdating do
-      on roles(:all) do
-        print 'Creating new release from git repo and creating symlinks for shared......'
-      end
-    end
-
-    after :updating, :deploy_step_afterupdating do
-      on roles(:all) do
-        puts '✔'.green
-      end
-    end
-
-    before :publishing, :deploy_step_beforepublishing do
-      on roles(:all) do
-        print 'Publishing new release by creating symlink from current......'
-      end
-    end
-
-    after :publishing, :deploy_step_afterpublishing do
-      on roles(:all) do
-        puts '✔'.green
-      end
-    end
-
-    before :finishing, :deploy_step_beforefinishing do
-      on roles(:all) do
-        print 'Cleaning up tmp directories from deployment......'
-      end
-    end
-
-    after :finishing, :deploy_step_afterfinishing do
-      on roles(:all) do
-        puts '✔'.green
-      end
-    end
-
-    before :reverting, :deploy_step_beforereverting do
-      on roles(:all) do
-        print 'Reverting environment to previous release......'
-      end
-    end
-
-    after :reverting, :deploy_step_afterreverting do
-      on roles(:all) do
-        puts '✔'.green
-      end
-    end
-
-    before :finishing_rollback, :deploy_step_afterfinishing_rollback do
-      on roles(:all) do
-        print 'Finishing rollback and cleaning up tmp directories......'
-      end
-    end
-
-    after :finishing_rollback, :deploy_step_afterfinishing_rollback do
-      on roles(:all) do
-        puts '✔'.green
-      end
-    end
-
-    after :finished, :deploy_step_afterfinished do
-      on roles(:all) do
-        print 'Your deployment was successful. Don\'t forget to be a responsible developer and QA your deployment.'.green
       end
     end
   end
