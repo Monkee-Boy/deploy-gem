@@ -1,8 +1,6 @@
 class Mboy
-  @hipchat_apikey = ''
-
   def initialize()
-    set :hipchat_room, 'Dev Team'
+    set :server_name, 'Habitat'
     set :human, %x{git config user.name}.strip
     set :log_level, :error
     set :use_sudo, false
@@ -65,21 +63,41 @@ class Mboy
     end
   end
 
-  def self.hipchat_notify()
+  def self.notify()
     after :finishing, :deploy_message do
       ask(:deployment_message, '')
-      client = HipChat::Client.new(@hipchat_apikey)
-      client[fetch(:hipchat_room)].send('Habitat', '(success) ' + fetch(:project_name) + ' (' + fetch(:deploy_env) + ') was successfully deployed to the habitat by ' + fetch(:human) + '. ' + fetch(:deployment_message), :color => 'green', :message_format => 'text')
+
+      on roles(:web) do
+        within deploy_to do
+          notify_msg = ":success: #{fetch :project_name} (#{fetch :deploy_env}) was successfully deployed to the #{fetch :server_name} by #{fetch :human}. #{fetch :deployment_message}"
+
+          execute :curl, %(--data "#{notify_msg}" $'<SLACKURL>')
+        end
+      end
     end
 
     after :finishing_rollback, :rollback_message do
-      client = HipChat::Client.new(@hipchat_apikey)
-      client[fetch(:hipchat_room)].send('Habitat', '(pokerface) ' + fetch(:project_name) + ' (' + fetch(:deploy_env) + ') was successfully rolledback to a previous deployment on the habitat by ' + fetch(:human) + '.', :color => 'yellow', :message_format => 'text')
+      on roles(:web) do
+        within deploy_to do
+          notify_msg = ":pokerface: #{fetch :project_name} (#{fetch :deploy_env}) was successfully rolledback to a previous deployment on the #{fetch :server_name} by #{fetch :human}. #{fetch :deployment_message}"
+
+          execute :curl, %(--data "#{notify_msg}" $'<SLACKURL>')
+        end
+      end
     end
 
     after :failed, :failed_message do
-      client = HipChat::Client.new(@hipchat_apikey)
-      client[fetch(:hipchat_room)].send('Habitat', '(facepalm) ' + fetch(:project_name) + ' (' + fetch(:deploy_env) + ') failed to be deployed to the habitat by ' + fetch(:human) + '.', :color => 'red', :message_format => 'text')
+      on roles(:web) do
+        within deploy_to do
+          notify_msg = ":facepalm: #{fetch :project_name} (#{fetch :deploy_env}) failed to be deployed to the #{fetch :server_name} by #{fetch :human}. #{fetch :deployment_message}"
+
+          execute :curl, %(--data "#{notify_msg}" $'<SLACKURL>')
+        end
+      end
     end
+  end
+
+  def self.hipchat_notify()
+    self.notify
   end
 end
